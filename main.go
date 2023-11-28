@@ -2,6 +2,7 @@ package main
 
 import (
 	"ContrucaoDeCompiladoresDlucredio/parser"
+	"fmt"
 	"github.com/antlr4-go/antlr"
 )
 
@@ -17,6 +18,6 @@ func main() {
 		if t.GetTokenType() == antlr.TokenEOF {
 			break
 		}
-		println(t.GetText())
+		fmt.Printf("<%s, %s>\n", t.GetText(), lexer.SymbolicNames[t.GetTokenType()])
 	}
 }
