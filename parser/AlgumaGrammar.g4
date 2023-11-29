@@ -1,30 +1,124 @@
-lexer grammar AlgumaGrammar;
+grammar AlgumaGrammar;
 
-PalavraChave: 'DECLARACOES' | 'ALGORITMO' | 'INTEIRO' | 'REAL' | 'ATRIBUIR' | 'A' | 'LER' |
-                'IMPRIMIR' | 'SE' | 'ENTAO' | 'ENQUANTO' | 'INICIO' | 'FIM' | 'E' | 'OU';
+TIPO_VAR
+	:	'INTEIRO' | 'REAL';
 
-NumInt: ('+' | '-')? (Digito)+;
+NUMINT
+	:	('0'..'9')+
+	;
 
-NumReal: ('+' | '-')? (Digito)+ '.' (Digito)+;
+NUMREAL
+	:	('0'..'9')+ ('.' ('0'..'9')+)?
+	;
 
-Variavel: Letra (Letra | Digito)*;
+VARIAVEL
+	:	('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9')*
+	;
 
-Cadeia : '\'' (ESC_SEQ | ~('\\'))* '\'';
+CADEIA
+	:	'\'' ( ESC_SEQ | ~('\''|'\\') )* '\''
+	;
+
+OP_ARIT1
+	:	'+' | '-'
+	;
+
+OP_ARIT2
+	:	'*' | '/'
+	;
+
+OP_REL
+	:	'>' | '>=' | '<' | '<=' | '<>' | '='
+	;
+
+OP_BOOL
+	:	'E' | 'OU'
+	;
 
 fragment
-ESC_SEQ : '\\\'';
+ESC_SEQ
+	:	'\\\'';
 
-OP_REL: '>' | '<' | '>=' | '<=' | '==' | '<>';
+COMENTARIO
+	:	'%' ~('\n'|'\r')* '\r'? '\n' {skip();}
+	;
 
-OP_ARIT: '+' | '-' | '*' | '/';
+WS 	:	( ' ' |'\t' | '\r' | '\n') {skip();}
+	;
 
-DELIM: ':';
+programa
+	:	':' 'DECLARACOES' listaDeclaracoes ':' 'ALGORITMO' listaComandos
+	;
 
-ABREPAR: '(';
+listaDeclaracoes
+	:	declaracao listaDeclaracoes | declaracao
+	;
 
-FECHAPAR: ')';
+declaracao
+	:	VARIAVEL ':' TIPO_VAR
+	;
 
-WS: ( ' ' | '\t' | '\r' | '\n' ) -> skip;
+expressaoAritmetica
+	:	expressaoAritmetica OP_ARIT1 termoAritmetico
+	|	termoAritmetico
+	;
 
-Letra: 'a'..'z' | 'A'..'Z';
-Digito: '0'..'9';
+termoAritmetico
+	:	termoAritmetico OP_ARIT2 fatorAritmetico
+	|	fatorAritmetico
+	;
+
+fatorAritmetico
+	:	NUMINT
+	|	NUMREAL
+	|	VARIAVEL
+	|	'(' expressaoAritmetica ')'
+	;
+
+expressaoRelacional
+	:	expressaoRelacional OP_BOOL termoRelacional
+	|	termoRelacional
+	;
+
+termoRelacional
+	:	expressaoAritmetica OP_REL expressaoAritmetica
+	|	'(' expressaoRelacional ')'
+	;
+
+
+listaComandos
+	:	comando listaComandos
+	|	comando
+	;
+
+comando
+	:	comandoAtribuicao
+	|	comandoEntrada
+	|	comandoSaida
+	|	comandoCondicao
+	|	comandoRepeticao
+	|	subAlgoritmo
+	;
+
+comandoAtribuicao
+	:	'ATRIBUIR' expressaoAritmetica 'A' VARIAVEL
+	;
+
+comandoEntrada
+	:	'LER' VARIAVEL
+	;
+comandoSaida
+	:	'IMPRIMIR' (VARIAVEL | CADEIA)
+	;
+
+comandoCondicao
+	:	'SE' expressaoRelacional 'ENTAO' comando
+	|	'SE' expressaoRelacional 'ENTAO' comando 'SENAO' comando
+	;
+
+comandoRepeticao
+	:	'ENQUANTO' expressaoRelacional comando
+	;
+subAlgoritmo
+	: 'INICIO' listaComandos 'FIM'
+	;
