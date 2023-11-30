@@ -52,7 +52,7 @@ programa
 	;
 
 listaDeclaracoes
-	:	declaracao listaDeclaracoes | declaracao
+	:	declaracao+
 	;
 
 declaracao
@@ -88,8 +88,7 @@ termoRelacional
 
 
 listaComandos
-	:	comando listaComandos
-	|	comando
+	:	comando+
 	;
 
 comando
