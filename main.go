@@ -2,22 +2,23 @@ package main
 
 import (
 	"ContrucaoDeCompiladoresDlucredio/parser"
-	"fmt"
-	"github.com/antlr4-go/antlr"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 func main() {
-	filePath := "./algoritmo.alguma"
+	filePath := "./sintatica.alguma"
 	println("Compilando arquivo: " + filePath)
 
-	parser.AlgumaGrammarInit()
 	input, _ := antlr.NewFileStream(filePath)
-	lexer := parser.NewAlgumaGrammar(input)
-	for {
-		t := lexer.NextToken()
-		if t.GetTokenType() == antlr.TokenEOF {
-			break
-		}
-		fmt.Printf("<%s, %s>\n", t.GetText(), lexer.SymbolicNames[t.GetTokenType()])
-	}
+	lexer := parser.NewAlgumaGrammarLexer(input)
+
+	//t := lexer.NextToken()
+	//for t.GetTokenType() != antlr.TokenEOF {
+	//	fmt.Printf("<%s,%s>\n", t.GetText(), lexer.SymbolicNames[t.GetTokenType()])
+	//	t = lexer.NextToken()
+	//}
+
+	commonTokenStream := antlr.NewCommonTokenStream(lexer, 0)
+	parserInstance := parser.NewAlgumaGrammarParser(commonTokenStream)
+	parserInstance.Programa()
 }
