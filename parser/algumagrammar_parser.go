@@ -294,6 +294,16 @@ func (s *ProgramaContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ProgramaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitPrograma(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) Programa() (localctx IProgramaContext) {
 	localctx = NewProgramaContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, AlgumaGrammarParserRULE_programa)
@@ -460,6 +470,16 @@ func (s *ListaDeclaracoesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ListaDeclaracoesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitListaDeclaracoes(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) ListaDeclaracoes() (localctx IListaDeclaracoesContext) {
 	localctx = NewListaDeclaracoesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, AlgumaGrammarParserRULE_listaDeclaracoes)
@@ -572,6 +592,16 @@ func (s *DeclaracaoContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DeclaracaoContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitDeclaracao(s)
+	}
+}
+
+func (s *DeclaracaoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitDeclaracao(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -718,6 +748,16 @@ func (s *ExpressaoAritmeticaContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ExpressaoAritmeticaContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitExpressaoAritmetica(s)
+	}
+}
+
+func (s *ExpressaoAritmeticaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitExpressaoAritmetica(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -908,6 +948,16 @@ func (s *TermoAritmeticoContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TermoAritmeticoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitTermoAritmetico(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) TermoAritmetico() (localctx ITermoAritmeticoContext) {
 	return p.termoAritmetico(0)
 }
@@ -1085,6 +1135,16 @@ func (s *FatorAritmeticoContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FatorAritmeticoContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitFatorAritmetico(s)
+	}
+}
+
+func (s *FatorAritmeticoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitFatorAritmetico(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1273,6 +1333,16 @@ func (s *ExpressaoRelacionalContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ExpressaoRelacionalContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitExpressaoRelacional(s)
+	}
+}
+
+func (s *ExpressaoRelacionalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitExpressaoRelacional(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1489,6 +1559,16 @@ func (s *TermoRelacionalContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TermoRelacionalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitTermoRelacional(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) TermoRelacional() (localctx ITermoRelacionalContext) {
 	localctx = NewTermoRelacionalContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 14, AlgumaGrammarParserRULE_termoRelacional)
@@ -1663,6 +1743,16 @@ func (s *ListaComandosContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ListaComandosContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitListaComandos(s)
+	}
+}
+
+func (s *ListaComandosContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitListaComandos(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1873,6 +1963,16 @@ func (s *ComandoContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComandoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComando(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) Comando() (localctx IComandoContext) {
 	localctx = NewComandoContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, AlgumaGrammarParserRULE_comando)
@@ -2030,6 +2130,16 @@ func (s *ComandoAtribuicaoContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComandoAtribuicaoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComandoAtribuicao(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) ComandoAtribuicao() (localctx IComandoAtribuicaoContext) {
 	localctx = NewComandoAtribuicaoContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 20, AlgumaGrammarParserRULE_comandoAtribuicao)
@@ -2146,6 +2256,16 @@ func (s *ComandoEntradaContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComandoEntradaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComandoEntrada(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) ComandoEntrada() (localctx IComandoEntradaContext) {
 	localctx = NewComandoEntradaContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 22, AlgumaGrammarParserRULE_comandoEntrada)
@@ -2252,6 +2372,16 @@ func (s *ComandoSaidaContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ComandoSaidaContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitComandoSaida(s)
+	}
+}
+
+func (s *ComandoSaidaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComandoSaida(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2416,6 +2546,16 @@ func (s *ComandoCondicaoContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ComandoCondicaoContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitComandoCondicao(s)
+	}
+}
+
+func (s *ComandoCondicaoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComandoCondicao(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -2611,6 +2751,16 @@ func (s *ComandoRepeticaoContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComandoRepeticaoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitComandoRepeticao(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *AlgumaGrammarParser) ComandoRepeticao() (localctx IComandoRepeticaoContext) {
 	localctx = NewComandoRepeticaoContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 28, AlgumaGrammarParserRULE_comandoRepeticao)
@@ -2724,6 +2874,16 @@ func (s *SubAlgoritmoContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SubAlgoritmoContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(AlgumaGrammarListener); ok {
 		listenerT.ExitSubAlgoritmo(s)
+	}
+}
+
+func (s *SubAlgoritmoContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case AlgumaGrammarVisitor:
+		return t.VisitSubAlgoritmo(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
